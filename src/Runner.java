@@ -4,6 +4,11 @@ import java.util.Scanner;
 
 import org.jibble.pircbot.*;
 
+/**
+ * TODO:
+ * - Add in cards against humanity 
+ *
+ */
 
 public class Runner {
 	
