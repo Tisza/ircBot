@@ -12,10 +12,10 @@ import org.jibble.pircbot.*;
 
 public class Runner {
 	
-	public static final boolean DEBUG = true;
-	public static final String SERVER = "irc.freenode.net";
-	public static final String CHANNEL = "#testingabotlol";
-	public static final String NAME = "botinprogress";
+	public static final boolean DEBUG = false;
+	public static final String SERVER = "irc.netchat.io"; //"irc.freenode.net";
+	public static final String CHANNEL = "#tinderdox";
+	public static final String NAME = "badbot";
 	
 	/**
 	 * @param args
@@ -26,9 +26,9 @@ public class Runner {
 	public static void main(String[] args) {
 		PircBot bot = null;
 		try {
-			bot = new AlphaBot(NAME, "ops.dat", "xi wector");
+			bot = new AlphaBot(NAME, "optout.dat", "*67");
 		} catch (FileNotFoundException e) {
-			System.out.println("Failed to find operators file.");
+			System.out.println("Failed to find opt-out file.");
 			System.exit(1);
 		} catch (IOException e) {
 			System.out.println("File system failure.");

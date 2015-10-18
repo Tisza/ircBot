@@ -4,10 +4,13 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-
+/**
+ * A quick test program for running markov chains using file inputs
+ */
 public class BookerDewitt {
 	
 	public static Markov mk = null;
+	private static boolean SAVE = true;
 	
 	/**
 	 * @param args
@@ -45,6 +48,9 @@ public class BookerDewitt {
 			}
 		}
 		c.close();
+		if (SAVE) {
+			mk.writeFile();
+		}
 	}
 	
 	public static void intro() {

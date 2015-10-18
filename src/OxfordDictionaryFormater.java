@@ -7,7 +7,9 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
+/**
+ * Quick program to convert the oxforddictionary.txt into a simple word part-of-speech file
+ */
 public class OxfordDictionaryFormater {
 
 	/**

@@ -13,12 +13,13 @@ public class Markov implements Comparable<Markov> {
 	private File fd;
 	private Map<String, Set<Pair<String, Integer>>> chain;
 	private static String DELIMIT = ":::";
+	private static boolean DEBUG = false;
 	
 	public Markov(String fileName) throws IOException {
 		fd = new File(fileName);
 		chain = new HashMap<String, Set<Pair<String, Integer>>>();
 		if (fd.exists() && fd.isFile()) {
-			System.out.println("Reading Markov File...");
+			if (DEBUG) System.out.println("Reading Markov File...");
 			try {
 				Scanner s = new Scanner(fd);
 				while(s.hasNextLine()) {
@@ -27,6 +28,7 @@ public class Markov implements Comparable<Markov> {
 					if (parts.length > 1) {
 						if (!chain.containsKey(parts[0]))
 							chain.put(parts[0], new HashSet<Pair<String, Integer>>());
+						if (DEBUG) System.out.println("adding " + parts[0]);
 						Set<Pair<String, Integer>> h = chain.get(parts[0]);
 						for(int i = 1; i < parts.length; i++) {
 							String[] args = parts[i].split(DELIMIT);
@@ -34,12 +36,13 @@ public class Markov implements Comparable<Markov> {
 								Pair<String, Integer> p = new Pair<String, Integer>
 								(args[0], Integer.parseInt(args[1]));
 								h.add(p);
+								if (DEBUG) System.out.println("\t -> " + args[0]);
 							}
 						}
 					}
 				}
 				s.close();
-				System.out.println("Markov chain built.");
+				if (DEBUG) System.out.println("Markov chain built.");
 			} catch (FileNotFoundException e) {
 				System.out.println("No File Found.");
 			}
@@ -83,11 +86,11 @@ public class Markov implements Comparable<Markov> {
 	 * @return the sentence
 	 */
 	public String createSentence(String start) {
-		if (start.equals(".")) {
+		if (start.equals(". ")) {
 			return "";
 		} else if (chain.containsKey(start)) {
 			Set<Pair<String, Integer>> s = chain.get(start);
-			if (start.equals("^")) {
+			if (start.equals("^ ")) {
 				start = "";
 			}
 			int total = 0;
@@ -105,7 +108,9 @@ public class Markov implements Comparable<Markov> {
 			}
 			return start + " " + createSentence(last.k);
 		} else {
-			return start;
+			if (!start.equals("^ "))
+				return start;
+			return "";
 		}
 	}
 	
@@ -114,7 +119,7 @@ public class Markov implements Comparable<Markov> {
 	 * @return a random sentence
 	 */
 	public String randomSentence() {
-		return createSentence("^");
+		return createSentence("^ ");
 	}
 	
 	/**
@@ -125,14 +130,14 @@ public class Markov implements Comparable<Markov> {
 		while(in.hasNextLine()) {
 			Scanner l = new Scanner(in.nextLine());
 			if (l.hasNext()) {
-				String last = "^";
+				String last = "^ ";
 				String next;
 				while(l.hasNext()) {
 					next = l.next();
 					countWordAssoc(last, next);
 					last = next;
 				}
-				countWordAssoc(last, ".");
+				countWordAssoc(last, ". ");
 			}
 			l.close();
 		}

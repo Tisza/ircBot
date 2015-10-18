@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-
+/**
+ * quick program to run the ImprovedMarkov chain
+ */
 public class ElisabethDewitt {
 
 	public static ImprovedMarkov mk = null;

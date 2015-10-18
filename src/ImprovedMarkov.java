@@ -6,7 +6,9 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
-
+/**
+ * concept to impove markov chains by using parts of speech
+ */
 public class ImprovedMarkov implements Comparable<ImprovedMarkov> {
 	private Map<String, String> wordToPart;
 	private Map<String, Set<String>> partToWord;
